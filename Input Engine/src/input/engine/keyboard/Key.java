@@ -97,13 +97,13 @@ public class Key /*implements KeyListener*/ {
 			for(int i = 0; i < KeyEvent.KEY_LAST; i++) {
 				key = new Key(i, input);
 				setEffect(KeyEvent.VK_W, "Up"); // W
-				setEffect(KeyEvent.VK_LEFT, "Up"); // Arrow
-				setEffect(65, "Left"); // A
-				setEffect(37, "Left"); // Arrow
-				setEffect(68, "Right"); // D
-				setEffect(39, "Right"); // Arrow
-				setEffect(83, "Down"); // S
-				setEffect(40, "Down"); // Arrow
+				setEffect(KeyEvent.VK_UP, "Up"); // Arrow
+				setEffect(KeyEvent.VK_A, "Left"); // A
+				setEffect(KeyEvent.VK_LEFT, "Left"); // Arrow
+				setEffect(KeyEvent.VK_D, "Right"); // D
+				setEffect(KeyEvent.VK_RIGHT, "Right"); // Arrow
+				setEffect(KeyEvent.VK_S, "Down"); // S
+				setEffect(KeyEvent.VK_DOWN, "Down"); // Arrow
 				setEffect(27, "Escape"); // Esc
 				setEffect(KeyEvent.VK_ENTER, "Enter");
 				setEffect(KeyEvent.VK_1, "Enemy1");
