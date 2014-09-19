@@ -13,9 +13,9 @@ public class Key /*implements KeyListener*/ {
 		public boolean down, pressed;
         public int kevent;
         
-        public List<Integer> keyEvents = new ArrayList<>();
+        //public List<Integer> keyEvents = new ArrayList<>();
         public static Map<String, Key> keys = new HashMap<>();
-        public static List<String> names = new ArrayList<>();
+        //public static List<String> names = new ArrayList<>();
         
         public String name;
         public String effect;
@@ -29,8 +29,9 @@ public class Key /*implements KeyListener*/ {
                     
         public Key(int ke, InputHandler input) {
         	name = KeyEvent.getKeyText(ke);
-        	keys.put(name, this);
-        	names.add(name);
+        	//keys.put(name, this);
+        	keys.put(ke, this);
+        	//names.add(name);
             setKeyEvent(ke);
             this.input = input;
         }
@@ -79,7 +80,7 @@ public class Key /*implements KeyListener*/ {
 		
 		private static void setEffect(int kevent, String effect) {
 			if(keys.size() > kevent) {
-				Key key = keys.get(names.get(kevent));
+				Key key = keys.get(kevent);
 				//System.out.println(key.name);
 				//System.out.println(key.kevent);
 				key.effect = effect;
