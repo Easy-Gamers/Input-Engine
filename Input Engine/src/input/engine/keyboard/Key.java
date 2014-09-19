@@ -1,12 +1,13 @@
 package input.engine.keyboard;
 
 import java.awt.event.KeyEvent;
+//import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Key {
+public class Key /*implements KeyListener*/ {
 		
 		public int presses, absorbs;
 		public boolean down, pressed;
@@ -18,17 +19,20 @@ public class Key {
         
         public String name;
         public String effect;
+        
+        public InputHandler input;
 
 //		public Key(String name) {
 //			this.name = name;
 //			keys.put(name, this);
 //		}
                     
-        public Key(int ke) {
+        public Key(int ke, InputHandler input) {
         	name = KeyEvent.getKeyText(ke);
         	keys.put(name, this);
         	names.add(name);
             setKeyEvent(ke);
+            this.input = input;
         }
                     
         public void setKeyEvent(int ke) {
@@ -87,12 +91,13 @@ public class Key {
 			}
 		}
 		
-		public static void setKeys() {
+		public static void setKeys(InputHandler input) {
+			@SuppressWarnings("unused")
 			Key key;
 			for(int i = 0; i < KeyEvent.KEY_LAST; i++) {
-				key = new Key(i);
-				setEffect(87, "Up"); // W
-				setEffect(38, "Up"); // Arrow
+				key = new Key(i, input);
+				setEffect(KeyEvent.VK_W, "Up"); // W
+				setEffect(KeyEvent.VK_LEFT, "Up"); // Arrow
 				setEffect(65, "Left"); // A
 				setEffect(37, "Left"); // Arrow
 				setEffect(68, "Right"); // D
@@ -100,10 +105,34 @@ public class Key {
 				setEffect(83, "Down"); // S
 				setEffect(40, "Down"); // Arrow
 				setEffect(27, "Escape"); // Esc
+				setEffect(KeyEvent.VK_ENTER, "Enter");
+				setEffect(KeyEvent.VK_1, "Enemy1");
+				setEffect(KeyEvent.VK_2, "Enemy2");
+				setEffect(KeyEvent.VK_3, "Enemy3");
+				setEffect(KeyEvent.VK_4, "Enemy4");
+				setEffect(KeyEvent.VK_5, "Enemy5");
 				//if(i == 87) key.setEffect(effect) = "Up";
 				//if(i == 65) key.effect = "Left";
 				//if(i == 68) key.effect = "Right";
 			}
 			key = null;
 		}
+
+//		@Override
+//		public void keyPressed(KeyEvent arg0) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//
+//		@Override
+//		public void keyReleased(KeyEvent arg0) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//
+//		@Override
+//		public void keyTyped(KeyEvent arg0) {
+//			// TODO Auto-generated method stub
+//			
+//		}
 }

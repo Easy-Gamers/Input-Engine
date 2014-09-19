@@ -2,8 +2,8 @@ package input.engine.keyboard;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
 import java.awt.Canvas;
 
 public class InputHandler implements KeyListener {
@@ -76,6 +76,7 @@ public class InputHandler implements KeyListener {
 
 		public InputHandler(Canvas game) {
 			game.addKeyListener(this);
+			Key.setKeys(this);
 		}
 
 		@Override
