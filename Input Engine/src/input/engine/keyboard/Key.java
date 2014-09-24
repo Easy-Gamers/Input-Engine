@@ -27,13 +27,14 @@ public class Key /*implements KeyListener*/ {
 //			keys.put(name, this);
 //		}
                     
-        public Key(int ke, InputHandler input) {
+        //public Key(int ke, InputHandler input) {
+        public Key(int ke) {
         	name = KeyEvent.getKeyText(ke);
         	//keys.put(name, this);
         	keys.put(ke, this);
         	//names.add(name);
             setKeyEvent(ke);
-            this.input = input;
+            //this.input = input;
         }
                     
         public void setKeyEvent(int ke) {
@@ -92,11 +93,13 @@ public class Key /*implements KeyListener*/ {
 			}
 		}
 		
-		public static void setKeys(InputHandler input) {
+		//public static void setKeys(InputHandler input) {
+		public static void setKeys() {
 			@SuppressWarnings("unused")
 			Key key;
 			for(int i = 0; i < KeyEvent.KEY_LAST; i++) {
-				key = new Key(i, input);
+				//key = new Key(i, input);
+				key = new Key(i);
 				setEffect(KeyEvent.VK_W, "Up"); // W
 				setEffect(KeyEvent.VK_UP, "Up"); // Arrow
 				setEffect(KeyEvent.VK_A, "Left"); // A
