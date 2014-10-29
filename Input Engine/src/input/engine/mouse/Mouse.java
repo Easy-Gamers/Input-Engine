@@ -2,6 +2,7 @@ package input.engine.mouse;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 public class Mouse {
 	
@@ -11,6 +12,8 @@ public class Mouse {
 	public int pressedY = 0;
 	public int releasedX = 0;
 	public int releasedY = 0;
+	private int mouseWheel = 0;
+	private boolean mouseWheelMoved = false;
 	public boolean pressed = false;
 	
 	public int[] getPressed() {
@@ -18,10 +21,71 @@ public class Mouse {
 			pressedX, pressedY	
 		};
 		if(!pressed) {
-		pressedX = 0;
-		pressedY = 0;
+			pressedX = 0;
+			pressedY = 0;
 		}
 		return press;
+	}
+	
+	/**
+	 * Returns the mouseWheel index, can return any integer.
+	 * @return mouseWheel
+	 */
+	public int getMouseWheel() {
+		return mouseWheel;
+	}
+	
+	/**
+	 * Returns the mouseWheel index, can return any integer greater than minValue
+	 * @param minValue the min value for which the mouseWheel index can be returned.
+	 * @return mouseWheel or minValue
+	 */
+	public int getMouseWheelMIN(int minValue) {
+		if(mouseWheel < minValue) {
+			return minValue;
+		} else {
+			return mouseWheel;
+		}
+	}
+	
+	/**
+	 * Returns the mouseWheel index, can return any integer less than maxValue
+	 * @param maxValue the max value for which the mouseWheel index can be returned.
+	 * @return mouseWheel or maxValue
+	 */
+	public int getMouseWheelMAX(int maxValue) {
+		if(mouseWheel > maxValue) {
+			return maxValue;
+		} else {
+			return mouseWheel;
+		}
+	}
+	
+	/**
+	 * Returns the mouseWheel index, can return any integer greater than minValue and less than the maxValue
+	 * @param minValue the min value for which the mouseWheel index can be returned.
+	 * @param maxValue the max value for which the mouseWheel index can be returned.
+	 * @param defaultValue the value it will return if mouseWheel is less than minValue or mouseWheel is greater than maxValue
+	 * @return mouseWheel or defaultValue
+	 */
+	public int getMouseWheel(int minValue, int maxValue, int defaultValue) {
+		if(mouseWheel > minValue && mouseWheel < maxValue) {
+			return mouseWheel;
+		} else {
+			return defaultValue;
+		}
+	}
+	
+	public void resetMouseWheel() {
+		mouseWheel = 0;
+	}
+	
+	public void setMouseWheelMoved(boolean value) {
+		mouseWheelMoved = value;
+	}
+	
+	public boolean getMouseWheelMoved() {
+		return mouseWheelMoved;
 	}
 	
 	public class MouseHandler extends MouseAdapter {
@@ -49,6 +113,12 @@ public class Mouse {
 	    	releasedX = mx;
 	    	releasedY = my;
 	    	pressed = false;
+	    }
+	    
+	    @Override
+	    public void mouseWheelMoved(MouseWheelEvent e) {
+	    	mouseWheel += e.getWheelRotation();
+	    	mouseWheelMoved = true;
 	    }
 	}
 	
