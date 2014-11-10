@@ -12,6 +12,8 @@ public class Mouse {
 	public int pressedY = 0;
 	public int releasedX = 0;
 	public int releasedY = 0;
+	public int draggedX = 0;
+	public int draggedY = 0;
 	private int mouseWheel = 0;
 	private boolean mouseWheelMoved = false;
 	public boolean pressed = false;
@@ -89,6 +91,7 @@ public class Mouse {
 	}
 	
 	public class MouseHandler extends MouseAdapter {
+		
 	    @Override
 	    public void mouseMoved(MouseEvent e) {
 	        int mx = (e.getX());
@@ -119,6 +122,15 @@ public class Mouse {
 	    public void mouseWheelMoved(MouseWheelEvent e) {
 	    	mouseWheel += e.getWheelRotation();
 	    	mouseWheelMoved = true;
+	    }
+	    
+	    @Override
+	    public void mouseDragged(MouseEvent e) {
+	    	int mx = e.getX();
+	    	int my = e.getY();
+	    	draggedX = mx;
+	    	draggedY = my;
+	    	pressed = true;
 	    }
 	}
 	
