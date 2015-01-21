@@ -18,6 +18,8 @@ public class Mouse {
 	private boolean mouseWheelMoved = false;
 	public boolean pressed = false;
 	
+	public static final int X = 0, Y = 1;
+	
 	public int[] getPressed() {
 		int[] press = {
 			pressedX, pressedY	
@@ -27,6 +29,13 @@ public class Mouse {
 			pressedY = 0;
 		}
 		return press;
+	}
+	
+	public int getPressed(int var) {
+		if(var == X)
+			return (pressed) ? pressedX : 0;
+		else
+			return (pressed) ? pressedY : 0;
 	}
 	
 	/**
