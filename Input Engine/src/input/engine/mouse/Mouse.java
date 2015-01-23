@@ -1,15 +1,16 @@
 package input.engine.mouse;
 
+import java.awt.Canvas;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 public class Mouse {
 	
-	public int mouseX = 0;
-	public int mouseY = 0;
-	public int pressedX = 0;
-	public int pressedY = 0;
+	private int mouseX = 0;
+	private int mouseY = 0;
+	private int pressedX = 0;
+	private int pressedY = 0;
 	public int releasedX = 0;
 	public int releasedY = 0;
 	public int draggedX = 0;
@@ -19,6 +20,10 @@ public class Mouse {
 	public boolean pressed = false;
 	
 	public static final int X = 0, Y = 1;
+	
+	public boolean isPressed() {
+		return pressed;
+	}
 	
 	public int[] getPressed() {
 		int[] press = {
@@ -33,9 +38,22 @@ public class Mouse {
 	
 	public int getPressed(int var) {
 		if(var == X)
-			return (pressed) ? pressedX : 0;
+			return (pressed) ? pressedX : 0; // If mouse !pressed return 0
 		else
 			return (pressed) ? pressedY : 0;
+	}
+	
+	public void setPressed(boolean pressed) {
+		this.pressed = pressed;
+	}
+	
+	public void resetPressedPos() {
+		pressedX = 0;
+		pressedY = 0;
+	}
+	
+	public int getMousePos(int var) {
+		return (var == X) ? mouseX : mouseY;
 	}
 	
 	/**
@@ -99,46 +117,44 @@ public class Mouse {
 		return mouseWheelMoved;
 	}
 	
+	public Mouse(Canvas game) {
+		game.addMouseListener(new MouseHandler());
+		game.addMouseMotionListener(new MouseHandler());
+		game.addMouseWheelListener(new MouseHandler());
+	}
+	
 	public class MouseHandler extends MouseAdapter {
 		
 	    @Override
 	    public void mouseMoved(MouseEvent e) {
-	        int mx = (e.getX());
-	        int my = (e.getY());
-	        mouseX = mx;
-	        mouseY = my;
+	        mouseX = (e.getX());
+	        mouseY = (e.getY());
 	    }
 	    
 	    @Override
 	    public void mousePressed(MouseEvent e) {
-	        int mx = (e.getX()); // Mouse X position
-	    	int my = (e.getY()); // Mouse Y position
-	    	pressedX = mx;
-	    	pressedY = my;
+	        pressedX = (e.getX()); // Mouse X position
+	    	pressedY = (e.getY()); // Mouse Y position
 	    	pressed = true;
 	    }
 	    
 	    @Override
 	    public void mouseReleased(MouseEvent e) {
-	    	int mx = e.getX();
-	    	int my = e.getY();
-	    	releasedX = mx;
-	    	releasedY = my;
+	    	releasedX = e.getX();
+	    	releasedY = e.getY();
 	    	pressed = false;
 	    }
 	    
 	    @Override
 	    public void mouseWheelMoved(MouseWheelEvent e) {
-	    	mouseWheel += e.getWheelRotation();
+	    	mouseWheel = e.getWheelRotation();
 	    	mouseWheelMoved = true;
 	    }
 	    
 	    @Override
 	    public void mouseDragged(MouseEvent e) {
-	    	int mx = e.getX();
-	    	int my = e.getY();
-	    	draggedX = mx;
-	    	draggedY = my;
+	    	draggedX = e.getX();
+	    	draggedY = e.getY();
 	    	pressed = true;
 	    }
 	}
