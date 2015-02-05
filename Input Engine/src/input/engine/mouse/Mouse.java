@@ -7,19 +7,19 @@ import java.awt.event.MouseWheelEvent;
 
 public class Mouse {
 	
-public static int LEFT = 0, MIDDLE = 1, RIGHT = 2;
+	public static int LEFT = 0, MIDDLE = 1, RIGHT = 2;
 	
 	private int mouseX = 0;
 	private int mouseY = 0;
 	private int pressedX = 0;
 	private int pressedY = 0;
-	public int releasedX = 0;
-	public int releasedY = 0;
-	public int draggedX = 0;
-	public int draggedY = 0;
+	private int releasedX = 0;
+	private int releasedY = 0;
+	private int draggedX = 0;
+	private int draggedY = 0;
 	private int mouseWheel = 0;
 	private boolean mouseWheelMoved = false;
-	public boolean pressed = false;
+	private boolean pressed = false;
 	private int button = LEFT;
 	
 	public static final int X = 0, Y = 1;
@@ -32,17 +32,6 @@ public static int LEFT = 0, MIDDLE = 1, RIGHT = 2;
 		return button;
 	}
 	
-	public int[] getPressed() {
-		int[] press = {
-			pressedX, pressedY	
-		};
-		if(!pressed) {
-			pressedX = 0;
-			pressedY = 0;
-		}
-		return press;
-	}
-	
 	public int getPressed(int var) {
 		if(var == X)
 			return (pressed) ? pressedX : 0; // If mouse !pressed return 0
@@ -50,12 +39,24 @@ public static int LEFT = 0, MIDDLE = 1, RIGHT = 2;
 			return (pressed) ? pressedY : 0;
 	}
 	
-	public int clickLocation(int var) {
-		return (var == X) ? pressedX : pressedY;
+	public int getReleased(int var) {
+		return (var == X) ? releasedX : releasedY;
+	}
+	
+	public int getDragged(int var) {
+		return (var == X) ? draggedX : draggedY;
 	}
 	
 	public void setPressed(boolean pressed) {
 		this.pressed = pressed;
+	}
+	
+	public void resetPressedPos(int var) {
+		if(var == X) {
+			pressedX = 0;
+		} else {
+			pressedY = 0;
+		}
 	}
 	
 	public void resetPressedPos() {
@@ -63,8 +64,34 @@ public static int LEFT = 0, MIDDLE = 1, RIGHT = 2;
 		pressedY = 0;
 	}
 	
+	public void resetReleasedPos(int var) {
+		if(var == X) {
+			pressedX = 0;
+		} else {
+			pressedY = 0;
+		}
+	}
+	
+	public void resetReleasedPos() {
+		releasedX = 0;
+		releasedY = 0;
+	}
+	
 	public int getMousePos(int var) {
 		return (var == X) ? mouseX : mouseY;
+	}
+	
+	public void resetDraggedPos(int var) {
+		if(var == X) {
+			draggedX = 0;
+		} else {
+			draggedY = 0;
+		}
+	}
+	
+	public void resetDraggedPos() {
+		draggedX = 0;
+		draggedY = 0;
 	}
 	
 	/**
