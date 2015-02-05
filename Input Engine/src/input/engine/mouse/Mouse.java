@@ -7,6 +7,8 @@ import java.awt.event.MouseWheelEvent;
 
 public class Mouse {
 	
+public static int LEFT = 0, MIDDLE = 1, RIGHT = 2;
+	
 	private int mouseX = 0;
 	private int mouseY = 0;
 	private int pressedX = 0;
@@ -18,11 +20,16 @@ public class Mouse {
 	private int mouseWheel = 0;
 	private boolean mouseWheelMoved = false;
 	public boolean pressed = false;
+	private int button = LEFT;
 	
 	public static final int X = 0, Y = 1;
 	
 	public boolean isPressed() {
 		return pressed;
+	}
+	
+	public int mouseClicked() {
+		return button;
 	}
 	
 	public int[] getPressed() {
@@ -41,6 +48,10 @@ public class Mouse {
 			return (pressed) ? pressedX : 0; // If mouse !pressed return 0
 		else
 			return (pressed) ? pressedY : 0;
+	}
+	
+	public int clickLocation(int var) {
+		return (var == X) ? pressedX : pressedY;
 	}
 	
 	public void setPressed(boolean pressed) {
@@ -131,11 +142,21 @@ public class Mouse {
 	        mouseY = (e.getY());
 	    }
 	    
+	    public void checkMouse(MouseEvent e) {
+	    	switch(e.getButton()) {
+		    	case MouseEvent.BUTTON1: button = LEFT; break;
+		    	case MouseEvent.BUTTON2: button = MIDDLE; break;
+		    	case MouseEvent.BUTTON3: button = RIGHT; break;
+		    	default: button = LEFT; break;
+	    	}
+	    }
+	    
 	    @Override
 	    public void mousePressed(MouseEvent e) {
 	        pressedX = (e.getX()); // Mouse X position
 	    	pressedY = (e.getY()); // Mouse Y position
 	    	pressed = true;
+	    	checkMouse(e);
 	    }
 	    
 	    @Override
@@ -158,6 +179,4 @@ public class Mouse {
 	    	pressed = true;
 	    }
 	}
-	
-	
 }
