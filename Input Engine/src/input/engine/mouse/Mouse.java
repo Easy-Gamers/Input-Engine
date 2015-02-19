@@ -24,19 +24,31 @@ public class Mouse {
 	
 	public static final int X = 0, Y = 1;
 	
+	public void reset() {
+		resetPressedPos();
+		resetReleasedPos();
+		resetDraggedPos();
+		resetMouseWheel();
+	}
+	
 	public boolean isPressed() {
 		return pressed;
 	}
 	
+	public void setPressed(boolean pressed) {
+		this.pressed = pressed;
+	}
+	
+	/**
+	 * Returns what mouse button was pressed
+	 * @return LEFT, MIDDLE, or RIGHT
+	 */
 	public int mouseClicked() {
 		return button;
 	}
 	
 	public int getPressed(int var) {
-		if(var == X)
-			return (pressed) ? pressedX : 0; // If mouse !pressed return 0
-		else
-			return (pressed) ? pressedY : 0;
+		return (var == X) ? pressedX : pressedY;
 	}
 	
 	public int getReleased(int var) {
@@ -47,29 +59,9 @@ public class Mouse {
 		return (var == X) ? draggedX : draggedY;
 	}
 	
-	public void setPressed(boolean pressed) {
-		this.pressed = pressed;
-	}
-	
-	public void resetPressedPos(int var) {
-		if(var == X) {
-			pressedX = 0;
-		} else {
-			pressedY = 0;
-		}
-	}
-	
 	public void resetPressedPos() {
 		pressedX = 0;
 		pressedY = 0;
-	}
-	
-	public void resetReleasedPos(int var) {
-		if(var == X) {
-			pressedX = 0;
-		} else {
-			pressedY = 0;
-		}
 	}
 	
 	public void resetReleasedPos() {
@@ -77,21 +69,13 @@ public class Mouse {
 		releasedY = 0;
 	}
 	
-	public int getMousePos(int var) {
-		return (var == X) ? mouseX : mouseY;
-	}
-	
-	public void resetDraggedPos(int var) {
-		if(var == X) {
-			draggedX = 0;
-		} else {
-			draggedY = 0;
-		}
-	}
-	
 	public void resetDraggedPos() {
 		draggedX = 0;
 		draggedY = 0;
+	}
+	
+	public int getMousePos(int var) {
+		return (var == X) ? mouseX : mouseY;
 	}
 	
 	/**
@@ -169,21 +153,11 @@ public class Mouse {
 	        mouseY = (e.getY());
 	    }
 	    
-	    public void checkMouse(MouseEvent e) {
-	    	switch(e.getButton()) {
-		    	case MouseEvent.BUTTON1: button = LEFT; break;
-		    	case MouseEvent.BUTTON2: button = MIDDLE; break;
-		    	case MouseEvent.BUTTON3: button = RIGHT; break;
-		    	default: button = LEFT; break;
-	    	}
-	    }
-	    
 	    @Override
 	    public void mousePressed(MouseEvent e) {
 	        pressedX = (e.getX()); // Mouse X position
 	    	pressedY = (e.getY()); // Mouse Y position
 	    	pressed = true;
-	    	checkMouse(e);
 	    }
 	    
 	    @Override
@@ -206,4 +180,6 @@ public class Mouse {
 	    	pressed = true;
 	    }
 	}
+	
+	
 }
